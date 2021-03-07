@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
   repository_dispatch:
   schedule:
-    - cron: 35 13 * * 5
+    - cron: 31 00 * * 6
 
 jobs:
   deploy:
@@ -128,15 +128,3 @@ jobs:
 
     - name: Generate Manifest File
       run: |
-        cat << 123 > manifest.yml
-        applications:
-        - name: ${IBM_CF_APP_NAME}
-          memory: ${IBM_CF_APP_MEM}
-          random-route: true
-          command: base64 -d config > config.json; ./${IBM_CF_APP_NAME} -config=config.json
-          buildpacks:
-          - binary_buildpack
-        
-
-    - name: Deploy Cloud Foundry App
-      run: cf push
